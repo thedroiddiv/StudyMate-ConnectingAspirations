@@ -16,8 +16,10 @@ Aim of the foundation of ConnectingAspirants is to fill the gap of communication
 </a>  
 </p>
 
-<img  src="https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/data.png" />
-
+# Implementation Structure
+<p align="center">
+<img  height="500" src="https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/data.png" />
+</p>
         
 ## About
 
