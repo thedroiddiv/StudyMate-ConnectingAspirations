@@ -14,7 +14,10 @@ Aim of the foundation of ConnectingAspirants is to fill the gap of communication
         height="80"
         src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
 </a>  
-        </p>
+</p>
+
+<img  src="https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/data.png" />
+
         
 ## About
 
