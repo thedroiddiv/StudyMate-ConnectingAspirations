@@ -1,4 +1,7 @@
 package com.dxn.connectingaspirants.data.models
 
-class Chat {
-}
+data class Chat(
+    val senderId : String,
+    val receiverId : String,
+    val messages: List<Message>
+)

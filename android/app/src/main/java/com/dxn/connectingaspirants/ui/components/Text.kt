@@ -27,7 +27,8 @@ fun HeadingText(
     modifier: Modifier = Modifier,
     text: String,
     weight: FontWeight = FontWeight.SemiBold,
-    maxLines: Int = 1
+    maxLines: Int = 1,
+    textAlign: TextAlign = TextAlign.Start
 ) {
     Text(
         modifier = modifier,
@@ -35,7 +36,8 @@ fun HeadingText(
         color = MaterialTheme.colors.onBackground,
         fontWeight = weight,
         style = MaterialTheme.typography.body1,
-        maxLines = maxLines
+        maxLines = maxLines,
+        textAlign = textAlign
     )
 }
 
@@ -54,6 +56,7 @@ fun BodyText(
         fontWeight = FontWeight.Normal,
         style = MaterialTheme.typography.body1,
         maxLines = maxLines,
-        overflow = TextOverflow.Ellipsis
+        overflow = TextOverflow.Ellipsis,
+        textAlign = textAlign
     )
 }

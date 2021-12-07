@@ -1,4 +1,5 @@
 package com.dxn.connectingaspirants.data.models
 
-class Level {
+enum class Level{
+    NEWBIE, INTERMEDIATE, EXPERIENCED
 }

@@ -1,4 +1,6 @@
 package com.dxn.connectingaspirants.data.models
 
-class Message {
-}
+data class Message(
+    val isSender: Boolean,
+    val text: String
+)
