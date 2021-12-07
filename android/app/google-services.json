@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "655526316031",
+    "project_id": "connectingaspirants-nr",
+    "storage_bucket": "connectingaspirants-nr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655526316031:android:f17cc54ea0d10d44e6c9ca",
+        "android_client_info": {
+          "package_name": "com.dxn.connectingaspirants"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "655526316031-k9nhj3o43165l2p11g7cs2v3h3dareta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dxn.connectingaspirants",
+            "certificate_hash": "6751d2f797a19732c560349aa3bcbc48df98e91d"
+          }
+        },
+        {
+          "client_id": "655526316031-o5m5c5mvbijfbp0eochffou27g3nb9gu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRzlwhrEhDNUbTou-LLNKUbdtfwkLuwk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "655526316031-o5m5c5mvbijfbp0eochffou27g3nb9gu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
