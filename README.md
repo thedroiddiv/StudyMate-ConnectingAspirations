@@ -29,6 +29,9 @@ Alternatively, you can directly sign up for [ConnectingAspirants](www.connecting
 
 This android application allows you to analyse your progress and where you stand, letting you explore people with same aim and determination in life.
 
+## SAMPLES
+
+![ChatScreen](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-17.png) ![ChatList](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-05.png) 
 ## Features
 
 The android app lets you:
