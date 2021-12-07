@@ -22,7 +22,6 @@ Aim of the foundation of ConnectingAspirants is to fill the gap of communication
 </p>
         
 ## About
-
 ConnectingAspirants has been made for you to comfortably connect to people with same goal.
 You can download ConnectingAspirants from connectingaspirants.org and follow the instructions to install it on your own server.
 Alternatively, you can directly sign up for [ConnectingAspirants](www.connectingaspirants.org).
