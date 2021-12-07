@@ -22,7 +22,6 @@ Aim of the foundation of ConnectingAspirants is to fill the gap of communication
 </p>
         
 ## About
-
 ConnectingAspirants has been made for you to comfortably connect to people with same goal.
 You can download ConnectingAspirants from connectingaspirants.org and follow the instructions to install it on your own server.
 Alternatively, you can directly sign up for [ConnectingAspirants](www.connectingaspirants.org).
@@ -30,8 +29,15 @@ Alternatively, you can directly sign up for [ConnectingAspirants](www.connecting
 This android application allows you to analyse your progress and where you stand, letting you explore people with same aim and determination in life.
 
 ## SAMPLES
-![Profile](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/profile.png)
-![ChatScreen](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-17.png) ![ChatList](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-05.png) 
+<img alt="IntialLoadingScreen"
+        height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/aspirantsImage%20(2).jpg />
+<img alt="DiscoverPeople"
+        height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Discover.jpg />
+<img alt="Profile"
+        height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/profile.png />
+![ChatScreen](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-17.png) 
+![ChatList](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-05.png) 
+
 ## Features
 
 The android app lets you:
