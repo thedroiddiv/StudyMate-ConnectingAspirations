@@ -14,7 +14,12 @@ Aim of the foundation of ConnectingAspirants is to fill the gap of communication
         height="80"
         src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
 </a>  
-        </p>
+</p>
+
+# Implementation Structure
+<p align="center">
+<img  height="500" src="https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/data.png" />
+</p>
         
 ## About
 
@@ -24,6 +29,9 @@ Alternatively, you can directly sign up for [ConnectingAspirants](www.connecting
 
 This android application allows you to analyse your progress and where you stand, letting you explore people with same aim and determination in life.
 
+## SAMPLES
+![Profile](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/profile.png)
+![ChatScreen](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-17.png) ![ChatList](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-05.png) 
 ## Features
 
 The android app lets you:
