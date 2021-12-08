@@ -1,4 +1,4 @@
-package com.dxn.connectingaspirants.ui.screens.registration
+package com.dxn.connectingaspirants.ui.screens.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -12,18 +12,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.dxn.connectingaspirants.R
 import com.dxn.connectingaspirants.ui.components.*
 
 @Composable
-fun OnBoard(
+fun AuthScreen(
     viewModel: AuthViewModel,
     signInWithGoogle: () -> Unit,
     signInWithEmail: (email: String, password: String) -> Unit,
 ) {
 
-    val authNavController = rememberNavController()
     var email by remember { viewModel.email }
     var password by remember { viewModel.password }
     var selectedTagIndex by remember { viewModel.selectedTagIndex }

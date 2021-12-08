@@ -9,10 +9,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/Theme.ConnectingAspirants">
         <activity
-            android:name=".ui.SignInActivity"
+            android:name=".ui.screens.auth.SignInActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/Theme.ConnectingAspirants">
             <intent-filter>
@@ -21,8 +23,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.screens.MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/Theme.ConnectingAspirants">
         </activity>

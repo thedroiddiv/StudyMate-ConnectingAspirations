@@ -1,4 +1,4 @@
-package com.dxn.connectingaspirants.ui.screens.registration
+package com.dxn.connectingaspirants.ui.screens.auth
 
 
 import androidx.compose.runtime.mutableStateOf

@@ -1,4 +1,4 @@
-package com.dxn.connectingaspirants.ui
+package com.dxn.connectingaspirants.ui.screens.auth
 
 import android.app.Activity
 import android.content.Intent
@@ -10,8 +10,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dxn.connectingaspirants.R
-import com.dxn.connectingaspirants.ui.screens.registration.AuthViewModel
-import com.dxn.connectingaspirants.ui.screens.registration.OnBoard
+import com.dxn.connectingaspirants.ui.screens.MainActivity
 import com.dxn.connectingaspirants.ui.theme.ConnectingAspirantsTheme
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -43,7 +42,7 @@ class SignInActivity : ComponentActivity() {
         setContent {
             ConnectingAspirantsTheme {
                 authViewModel = viewModel()
-                OnBoard(
+                AuthScreen(
                     viewModel = authViewModel,
                     signInWithGoogle = { signInWithGoogle() },
                     signInWithEmail = { email, password ->

@@ -6,5 +6,4 @@ data class User(
     val level: Level = Level.NEWBIE,
     val target: Target = Target.JEE,
     val rating : Float = 5.0f,
-    val chats : List<String> = listOf()
 )

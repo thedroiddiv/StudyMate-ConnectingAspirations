@@ -11,14 +11,16 @@ import androidx.compose.ui.text.style.TextOverflow
 @Composable
 fun TitleText(
     modifier: Modifier = Modifier,
-    text: String
+    text: String,
+    maxLines: Int = 1
 ) {
     Text(
         modifier = modifier,
         text = text,
         color = MaterialTheme.colors.onBackground,
         fontWeight = FontWeight.Bold,
-        style = MaterialTheme.typography.h6
+        style = MaterialTheme.typography.h6,
+        maxLines = maxLines
     )
 }
 
