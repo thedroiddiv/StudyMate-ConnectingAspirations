@@ -7,6 +7,7 @@ import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -17,16 +18,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dxn.connectingaspirants.R
 import com.dxn.connectingaspirants.ui.components.*
+import com.facebook.CallbackManager
 
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel,
     signInWithGoogle: () -> Unit,
+    signInWithFacebook: () -> Unit,
     signInWithEmail: (email: String, password: String) -> Unit,
 ) {
 
-    var email by remember { viewModel.email }
-    var password by remember { viewModel.password }
+
     var selectedTagIndex by remember { viewModel.selectedTagIndex }
     var selectedLevelIndex by remember { viewModel.selectedLevelIndex }
 
@@ -34,7 +36,7 @@ fun AuthScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .scrollable(rememberScrollState(),Orientation.Vertical),
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Bottom
     ) {
         Image(
@@ -61,45 +63,27 @@ fun AuthScreen(
                 selected = selectedLevelIndex,
                 onSelect = { selectedLevelIndex = it })
             Spacer(modifier = Modifier.height(8.dp))
-            Column {
-                TransparentTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(1.dp, MaterialTheme.colors.primary, CircleShape)
-                        .padding(16.dp),
-                    value = email,
-                    onValueChange = { email = it },
-                    onFocusChange = {},
-                    hint = "Email"
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                TransparentTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(1.dp, MaterialTheme.colors.primary, CircleShape)
-                        .padding(16.dp),
-                    value = password,
-                    onValueChange = { password = it },
-                    onFocusChange = {},
-                    hint = "Password"
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                RoundedButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Continue with Email and Password"
-                ) { signInWithEmail(email, password) }
-                Spacer(modifier = Modifier.height(16.dp))
-                HeadingText(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "OR",
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                RoundedButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "Continue with Google"
-                ) { signInWithGoogle() }
-            }
+
         }
+        RoundedButton(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Continue with Google"
+        ) { signInWithGoogle() }
+        Spacer(modifier = Modifier.height(16.dp))
+        RoundedButton(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Continue with Facebook"
+        ) { signInWithFacebook() }
+        Spacer(modifier = Modifier.height(16.dp))
+        HeadingText(
+            modifier = Modifier.fillMaxWidth(),
+            text = "OR",
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        RoundedButton(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Continue with Email and Password"
+        ) { }
     }
 }

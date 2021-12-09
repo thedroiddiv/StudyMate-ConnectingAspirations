@@ -21,7 +21,8 @@ fun HeadingText(
         color = MaterialTheme.colors.onBackground,
         fontWeight = FontWeight.Bold,
         style = MaterialTheme.typography.h6,
-        maxLines = maxLines
+        maxLines = maxLines,
+        textAlign = textAlign
     )
 }
 

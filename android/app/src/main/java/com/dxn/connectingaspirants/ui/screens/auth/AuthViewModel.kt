@@ -1,6 +1,7 @@
 package com.dxn.connectingaspirants.ui.screens.auth
 
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.dxn.connectingaspirants.data.models.Level
@@ -34,6 +35,7 @@ constructor(
     val password = mutableStateOf("")
 
     fun createUser() {
+        Log.d(TAG, "createUser: ${auth.currentUser!!.uid}")
         auth.currentUser?.let {
             val user = User(
                 name = it.displayName!!,
@@ -42,9 +44,16 @@ constructor(
                 target = tags[selectedTagIndex.value],
                 level = levels[selectedLevelIndex.value]
             )
-            fireStoreDb.collection("users_collection").document(auth.uid!!).set(user, SetOptions.mergeFields())
+            fireStoreDb.collection("users_collection").document(auth.uid!!)
+                .set(
+                    user,
+                    SetOptions.mergeFields("name", "uid", "photoUrl", "target", "level", "rating")
+                )
         }
     }
 
+    companion object {
+        const val TAG = "AUTH_VIEWMODEL"
+    }
 
 }

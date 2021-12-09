@@ -72,20 +72,14 @@ class ChatRepositoryImpl(
         return callbackFlow {
             val chatId = getChatId(auth.uid!!, receiverId)
             val listener = chatsCollection.document(chatId)
-                .addSnapshotListener { value, firestoreException ->
+                .addSnapshotListener { value, exception ->
                     trySend(Result.Loading())
-                    if (firestoreException != null) {
+                    if (exception != null) {
                         cancel(
                             message = "error fetching collection data at path - $",
-                            cause = firestoreException
+                            cause = exception
                         )
-                        firestoreException.printStackTrace()
-                        Log.e(TAG, "getChat: ${firestoreException.localizedMessage}")
-                        trySend(
-                            Result.Failure(
-                                firestoreException.message ?: "something went wrong"
-                            )
-                        )
+                        trySend(Result.Failure(exception.message ?: "something went wrong"))
                         return@addSnapshotListener
                     }
                     val chat = value?.toObject(Chat::class.java)

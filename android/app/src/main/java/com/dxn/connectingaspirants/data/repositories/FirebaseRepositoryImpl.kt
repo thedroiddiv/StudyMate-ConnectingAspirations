@@ -28,7 +28,6 @@ class FirebaseRepositoryImpl(
                     message = "error fetching collection data at path - $",
                     cause = firestoreException
                 )
-                firestoreException.printStackTrace()
                 trySend(Result.Failure(firestoreException.message ?: "something went wrong"))
                 return@addSnapshotListener
             }

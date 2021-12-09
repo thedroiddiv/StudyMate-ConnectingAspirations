@@ -3,6 +3,7 @@ package com.dxn.connectingaspirants.ui.screens.auth
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,10 +13,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dxn.connectingaspirants.R
 import com.dxn.connectingaspirants.ui.screens.MainActivity
 import com.dxn.connectingaspirants.ui.theme.ConnectingAspirantsTheme
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,6 +36,8 @@ class SignInActivity : ComponentActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var signInIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var facebookLoginIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var callbackManager: CallbackManager
 
     @Inject
     lateinit var auth: FirebaseAuth
@@ -48,9 +58,20 @@ class SignInActivity : ComponentActivity() {
                     signInWithEmail = { email, password ->
                         signIn(email, password)
                     },
+                    signInWithFacebook = { signInWithFacebook() }
                 )
             }
         }
+        setupFacebookLogin()
+        setupGoogleLogin()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        auth.currentUser?.let { navigateToMainActivity() }
+    }
+
+    private fun setupGoogleLogin() {
         googleSignInClient = GoogleSignIn.getClient(
             this, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(resources.getString(R.string.web_client_id))
@@ -81,9 +102,45 @@ class SignInActivity : ComponentActivity() {
             }
     }
 
-    override fun onStart() {
-        super.onStart()
-        auth.currentUser?.let { navigateToMainActivity() }
+    private fun setupFacebookLogin() {
+        callbackManager = CallbackManager.Factory.create()
+        LoginManager.getInstance().registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult?> {
+                override fun onSuccess(result: LoginResult?) {
+                    handleFacebookAccessToken(result!!.accessToken)
+                }
+
+                override fun onCancel() {
+
+                }
+
+                override fun onError(error: FacebookException) {
+
+                }
+            })
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    authViewModel.createUser()
+                    navigateToMainActivity()
+                } else {
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun signInWithFacebook() {
+        LoginManager.getInstance().logInWithReadPermissions(
+            this,
+            callbackManager,
+            listOf("public_profile", "email")
+        )
     }
 
     private fun signInWithGoogle() {
@@ -107,7 +164,6 @@ class SignInActivity : ComponentActivity() {
         googleSignInClient.revokeAccess()
         finish()
     }
-
 
     companion object {
         private const val TAG = "MAIN_ACTIVITY"
