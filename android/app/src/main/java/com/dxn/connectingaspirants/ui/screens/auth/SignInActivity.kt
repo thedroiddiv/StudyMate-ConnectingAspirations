@@ -79,7 +79,6 @@ class SignInActivity : ComponentActivity() {
                     }
                 }
             }
-
     }
 
     override fun onStart() {

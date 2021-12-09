@@ -1,5 +1,6 @@
 package com.dxn.connectingaspirants.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
@@ -8,6 +9,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomCenter
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,7 +28,7 @@ fun ListItem(
     backgroundColor: Color = MaterialTheme.colors.background.copy(0.4f),
     contentColor: Color = MaterialTheme.colors.onBackground,
     cornerRadius: Dp = 16.dp,
-    onClick: () -> Unit
+    onClick: () -> Unit = {}
 ) {
     Surface(
         modifier = modifier,
@@ -34,40 +37,46 @@ fun ListItem(
         shape = RoundedCornerShape(cornerRadius),
         onClick = onClick
     ) {
-        Row(
-            Modifier
-                .fillMaxSize()
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(
+        Row(Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .padding(4.dp)
+                    .fillMaxHeight()
+                    .aspectRatio(1f)
+            ) { leadingIcon() }
+            Spacer(modifier = Modifier.width(24.dp))
+            Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(1f),
+                    .weight(1f)
             ) {
-                leadingIcon()
                 Row(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = 8.dp),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(8.dp),
+                    verticalAlignment = CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Column {
-                        Text(
+                    Column(Modifier.weight(1f)) {
+                        TitleText(
                             text = primaryText,
-                            style = MaterialTheme.typography.subtitle1,
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
                         )
-                        Text(
+                        BodyText(
                             text = secondaryText,
-                            style = MaterialTheme.typography.subtitle2,
                             maxLines = 1,
-                            color = contentColor.copy(0.5f)
                         )
                     }
+                    trailingIcon()
                 }
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(0.5.dp)
+                        .background(MaterialTheme.colors.primary.copy(0.8f))
+                        .align(BottomCenter)
+                ) {}
             }
-            trailingIcon()
         }
     }
 }

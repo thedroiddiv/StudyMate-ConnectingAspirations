@@ -8,12 +8,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import java.time.format.TextStyle
 
 @Composable
 fun RoundedButton(
     modifier: Modifier = Modifier,
-    text:String,
+    text: String,
+    textPadding: Dp = 8.dp,
     onClick: () -> Unit,
 ) {
     Button(
@@ -22,7 +25,7 @@ fun RoundedButton(
         shape = CircleShape,
     ) {
         Text(
-            modifier = Modifier.padding(vertical = 8.dp),
+            modifier = Modifier.padding(vertical = textPadding),
             text = text,
             style = MaterialTheme.typography.button
         )

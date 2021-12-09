@@ -37,6 +37,7 @@ constructor(
             val user = User(
                 name = it.displayName!!,
                 uid = auth.uid!!,
+                photoUrl = it.photoUrl.toString(),
                 target = tags[selectedTagIndex.value],
                 level = levels[selectedLevelIndex.value]
             )

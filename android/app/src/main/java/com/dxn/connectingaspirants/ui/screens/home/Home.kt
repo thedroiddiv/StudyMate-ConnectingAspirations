@@ -1,11 +1,12 @@
 package com.dxn.connectingaspirants.ui.screens.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
-import com.dxn.connectingaspirants.ui.components.TitleText
+import com.dxn.connectingaspirants.ui.components.HeadingText
 import com.dxn.connectingaspirants.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -23,6 +24,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun Home(
@@ -35,6 +37,9 @@ fun Home(
     val pages = listOf("Feeds", "Explore")
     val scope = rememberCoroutineScope()
 
+    val isLoading by remember { viewModel.isLoading }
+    val users by remember { viewModel.users }
+
     Scaffold(
         topBar = {
             Row(
@@ -44,8 +49,8 @@ fun Home(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                TitleText(text = "Hello!\n${currentUser.displayName!!}", maxLines = 2)
-                Row() {
+                HeadingText(text = "Hello!\n${currentUser.displayName!!}", maxLines = 2)
+                Row {
                     IconButton(
                         modifier = Modifier.size(40.dp),
                         onClick = {}) {
@@ -57,7 +62,7 @@ fun Home(
                     }
                     IconButton(
                         modifier = Modifier.size(40.dp),
-                        onClick = {navController.navigate("chats_screen")}) {
+                        onClick = { navController.navigate("chats_screen") }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_chat),
                             contentDescription = "chats",
@@ -96,7 +101,9 @@ fun Home(
                     Feeds()
                 }
                 1 -> {
-                    Explore()
+                    Explore(currentUser.uid,users, isLoading,navController) {
+                        viewModel.loadUsers()
+                    }
                 }
             }
         }

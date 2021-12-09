@@ -41,7 +41,7 @@ fun AuthScreen(
         )
         Column {
             Column {
-                TitleText(text = stringResource(R.string.app_name))
+                HeadingText(text = stringResource(R.string.app_name))
                 BodyText(text = stringResource(R.string.notes_description))
             }
             Spacer(modifier = Modifier.height(32.dp))

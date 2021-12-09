@@ -9,10 +9,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
-fun TitleText(
+fun HeadingText(
     modifier: Modifier = Modifier,
     text: String,
-    maxLines: Int = 1
+    maxLines: Int = 1,
+    textAlign: TextAlign = TextAlign.Start
 ) {
     Text(
         modifier = modifier,
@@ -25,7 +26,7 @@ fun TitleText(
 }
 
 @Composable
-fun HeadingText(
+fun TitleText(
     modifier: Modifier = Modifier,
     text: String,
     weight: FontWeight = FontWeight.SemiBold,
