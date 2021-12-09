@@ -80,7 +80,7 @@ class ChatRepositoryImpl(
                             cause = firestoreException
                         )
                         firestoreException.printStackTrace()
-                        Log.d(TAG, "getChat: ${firestoreException.localizedMessage}")
+                        Log.e(TAG, "getChat: ${firestoreException.localizedMessage}")
                         trySend(
                             Result.Failure(
                                 firestoreException.message ?: "something went wrong"

@@ -3,6 +3,7 @@ package com.dxn.connectingaspirants.ui.screens.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,7 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
@@ -18,8 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.dxn.connectingaspirants.data.models.Target
 import com.dxn.connectingaspirants.data.models.User
 import com.dxn.connectingaspirants.ui.components.ListItem
+import com.dxn.connectingaspirants.ui.components.RadioButtons
 import com.dxn.connectingaspirants.ui.components.RoundedButton
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -34,6 +37,13 @@ fun Explore(
     navController: NavController,
     refresh: () -> Unit,
 ) {
+
+    var selectedIndex by remember { mutableStateOf(0) }
+    val targets =
+        listOf(Target.ALL, Target.GATE, Target.JEE, Target.NEET, Target.PROGRAMMING, Target.UPSC)
+    val filteredList: List<User> =
+        if (selectedIndex == 0) users else users.filter { it.target == targets[selectedIndex] }
+
     SwipeRefresh(
         modifier = Modifier
             .fillMaxSize(),
@@ -48,13 +58,18 @@ fun Explore(
         onRefresh = refresh
     ) {
         LazyColumn(Modifier.padding(horizontal = 16.dp)) {
+
             item {
-                Text(
-                    modifier = Modifier.padding(vertical = 24.dp),
-                    text = "Amazing people are here!"
+                RadioButtons(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 24.dp, bottom = 8.dp),
+                    options = targets.map { it.toString() },
+                    selected = selectedIndex,
+                    onSelect = { selectedIndex = it }
                 )
             }
-            items(users) { user ->
+            items(filteredList) { user ->
                 if (user.uid != currentUserId)
                     ListItem(
                         modifier = Modifier
@@ -77,7 +92,8 @@ fun Explore(
                                 navController.navigate("chat_screen/${user.uid}")
                             }
                         },
-                        primaryText = user.name
+                        primaryText = user.name,
+                        secondaryText = user.target.toString()
                     )
             }
         }

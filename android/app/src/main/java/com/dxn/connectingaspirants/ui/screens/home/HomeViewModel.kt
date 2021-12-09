@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,18 +56,27 @@ constructor(
     }
 
     fun loadUser() {
-        firebaseRepository.getUser(firebaseAuth.uid!!).onEach {
-            when (it) {
-                is Result.Success -> {
-                    user.value = it.data!!
-                }
-                is Result.Failure -> {
-                    Log.d(TAG, "loadUser: ${it.message}")
+        viewModelScope.launch {
+            firebaseRepository.getUser(firebaseAuth.uid!!).let {
+                when (it) {
+                    is Result.Success -> {
+                        user.value = it.data!!
+                        isLoading.value=false
+                    }
+                    is Result.Failure -> {
+                        Log.d(TAG, "loadUser: ${it.message}")
+                        isLoading.value=false
+                    }
+                    is Result.Loading -> {
+                        isLoading.value=true
+                    }
                 }
             }
         }
+
     }
-    companion object{
+
+    companion object {
         const val TAG = "HOME_VIEWMODEL"
     }
 }

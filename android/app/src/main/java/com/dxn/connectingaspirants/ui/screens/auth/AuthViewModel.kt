@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 @HiltViewModel
 class AuthViewModel
@@ -19,7 +20,7 @@ constructor(
     private var auth: FirebaseAuth,
 ) : ViewModel() {
 
-    private val tags = listOf(
+    val tags = listOf(
         Target.GATE, Target.JEE, Target.NEET, Target.PROGRAMMING, Target.UPSC
     )
 
@@ -41,7 +42,7 @@ constructor(
                 target = tags[selectedTagIndex.value],
                 level = levels[selectedLevelIndex.value]
             )
-            fireStoreDb.collection("users_collection").document(auth.uid!!).set(user)
+            fireStoreDb.collection("users_collection").document(auth.uid!!).set(user, SetOptions.mergeFields())
         }
     }
 

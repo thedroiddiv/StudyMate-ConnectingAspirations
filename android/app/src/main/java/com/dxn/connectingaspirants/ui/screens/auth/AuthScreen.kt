@@ -2,7 +2,10 @@ package com.dxn.connectingaspirants.ui.screens.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
@@ -30,7 +33,8 @@ fun AuthScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .scrollable(rememberScrollState(),Orientation.Vertical),
         verticalArrangement = Arrangement.Bottom
     ) {
         Image(
@@ -47,7 +51,7 @@ fun AuthScreen(
             Spacer(modifier = Modifier.height(32.dp))
             RadioButtons(
                 modifier = Modifier,
-                options = listOf("JEE", "NEET", "UPSC", "GATE", "JRE", "CAT"),
+                options = viewModel.tags.map { it.toString() },
                 selected = selectedTagIndex,
                 onSelect = { selectedTagIndex = it })
             Spacer(modifier = Modifier.height(8.dp))

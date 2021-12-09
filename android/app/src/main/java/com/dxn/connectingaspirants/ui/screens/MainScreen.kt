@@ -1,10 +1,7 @@
 package com.dxn.connectingaspirants.ui.screens
 
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,26 +27,29 @@ fun MainScreen(
     val homeViewModel: HomeViewModel = viewModel()
     val chatsViewModel: ChatsViewModel = viewModel()
 
-    val user by remember { homeViewModel.user }
 
     NavHost(navController = navController, startDestination = "home_screen") {
         composable("home_screen") {
             Home(
                 viewModel = homeViewModel,
                 currentUser = currentUser,
-                navController = navController
+                navController = navController,
+                signOut
             )
         }
         composable("chats_screen") {
-            Chats(chatsViewModel, navController, user!!)
+            Chats(chatsViewModel, navController)
         }
         composable(
             "chat_screen/{receiverId}",
             arguments = listOf(navArgument("receiverId") {})
         ) { navBackStack ->
-            val receiver = navBackStack.arguments?.getString("receiverId")
-            Chat(receiverId = receiver!!, viewModel = chatsViewModel)
+            val receiverId = navBackStack.arguments?.getString("receiverId")!!
+            chatsViewModel.loadChat(receiverId)
+            chatsViewModel.loadUsers(receiverId)
+            Chat(receiverId = receiverId, viewModel = chatsViewModel,navController)
         }
     }
+
 
 }

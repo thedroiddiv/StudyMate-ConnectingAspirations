@@ -4,10 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,47 +27,53 @@ import kotlinx.coroutines.launch
 fun Home(
     viewModel: HomeViewModel,
     currentUser: FirebaseUser,
-    navController: NavController
+    navController: NavController,
+    signOut: () -> Unit
 ) {
 
     val pagerState = rememberPagerState()
-    val pages = listOf("Feeds", "Explore")
+    val pages = listOf("Explore", "Feeds")
     val scope = rememberCoroutineScope()
 
     val isLoading by remember { viewModel.isLoading }
     val users by remember { viewModel.users }
+    var isDialogVisible by remember { mutableStateOf(false) }
+
 
     Scaffold(
         topBar = {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                HeadingText(text = "Hello!\n${currentUser.displayName!!}", maxLines = 2)
-                Row {
-                    IconButton(
-                        modifier = Modifier.size(40.dp),
-                        onClick = {}) {
-                        Image(
-                            modifier = Modifier.clip(CircleShape),
-                            painter = rememberImagePainter(data = currentUser.photoUrl),
-                            contentDescription = "user profile",
-                        )
-                    }
-                    IconButton(
-                        modifier = Modifier.size(40.dp),
-                        onClick = { navController.navigate("chats_screen") }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_chat),
-                            contentDescription = "chats",
-                            tint = MaterialTheme.colors.primary,
-                        )
+            TopAppBar(backgroundColor = MaterialTheme.colors.background) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    HeadingText(text = "Hello!\n${currentUser.displayName!!}", maxLines = 2)
+                    Row {
+                        IconButton(
+                            modifier = Modifier.size(40.dp),
+                            onClick = { isDialogVisible = true }) {
+                            Image(
+                                modifier = Modifier.clip(CircleShape),
+                                painter = rememberImagePainter(data = currentUser.photoUrl),
+                                contentDescription = "user profile",
+                            )
+                        }
+                        IconButton(
+                            modifier = Modifier.size(40.dp),
+                            onClick = { navController.navigate("chats_screen") }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_chat),
+                                contentDescription = "chats",
+                                tint = MaterialTheme.colors.primary,
+                            )
+                        }
                     }
                 }
             }
+
         },
         bottomBar = {
             TabRow(
@@ -98,14 +101,34 @@ fun Home(
         HorizontalPager(count = 2, state = pagerState) { page ->
             when (page) {
                 0 -> {
-                    Feeds()
-                }
-                1 -> {
-                    Explore(currentUser.uid,users, isLoading,navController) {
+                    Explore(currentUser.uid, users, isLoading, navController) {
                         viewModel.loadUsers()
                     }
                 }
+                1 -> {
+                    Feeds()
+                }
             }
+        }
+        if (isDialogVisible) {
+            AlertDialog(
+                onDismissRequest = { isDialogVisible = false },
+                confirmButton = {
+                    TextButton(onClick = signOut) {
+                        Text(text = "Yes")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { isDialogVisible = false }) {
+                        Text(text = "No")
+                    }
+                },
+                title = {
+                    Text(text = "Sign out?")
+                },
+                backgroundColor = MaterialTheme.colors.background,
+                contentColor = MaterialTheme.colors.onBackground
+            )
         }
     }
 }

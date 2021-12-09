@@ -7,5 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface FirebaseRepository {
     fun getUsers(): Flow<Result<List<User>>>
-    fun getUser(userId: String): Flow<Result<User>>
+    suspend fun getUser(userId: String): Result<User>
+    suspend fun getUsers(userIds:List<String>) : List<User>
 }

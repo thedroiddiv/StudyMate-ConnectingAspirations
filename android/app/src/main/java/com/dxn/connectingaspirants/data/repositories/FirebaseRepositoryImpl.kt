@@ -12,6 +12,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.tasks.await
 
 class FirebaseRepositoryImpl(
     private val auth: FirebaseAuth,
@@ -36,24 +37,18 @@ class FirebaseRepositoryImpl(
         awaitClose { listener.remove() }
     }
 
-    @ExperimentalCoroutinesApi
-    override fun getUser(userId: String): Flow<Result<User>> = callbackFlow {
-        val listener = userCollection.document(userId).addSnapshotListener { value, firestoreException ->
-            trySend(Result.Loading())
-            if (firestoreException != null) {
-                cancel(
-                    message = "error fetching collection data at path - $",
-                    cause = firestoreException
-                )
-                firestoreException.printStackTrace()
-                trySend(Result.Failure(firestoreException.message ?: "something went wrong"))
-                return@addSnapshotListener
-            }
-            trySend(Result.Success((value?.toObject(User::class.java))!!))
+    override suspend fun getUsers(userIds: List<String>): List<User> {
+        if (userIds.isNotEmpty()) {
+            return userCollection.whereIn("uid", userIds).get().await().toObjects(User::class.java)
         }
-        awaitClose { listener.remove() }
+        return listOf()
     }
 
+    @ExperimentalCoroutinesApi
+    override suspend fun getUser(userId: String): Result<User> {
+        val user = userCollection.document(userId).get().await().toObject(User::class.java)
+        return if (user != null) return Result.Success(user) else Result.Failure("User not found!")
+    }
 
     companion object {
         const val TAG = "FIREBASE_REPOSITORY_IMPL"

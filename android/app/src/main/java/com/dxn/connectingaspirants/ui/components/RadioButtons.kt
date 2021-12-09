@@ -16,13 +16,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import java.time.format.TextStyle
 
 @Composable
 fun RadioButtons(
     modifier: Modifier,
     options: List<String>,
     selected: Int,
-    onSelect: (Int) -> Unit
+    onSelect: (Int) -> Unit,
 ) {
     LazyRow(modifier.fillMaxWidth()) {
         itemsIndexed(options) { index, option ->
@@ -43,7 +44,7 @@ fun RadioButtons(
                     .clickable { onSelect(index) }
                     .padding(4.dp)
             ) {
-                HeadingText(
+                TitleText(
                     modifier = Modifier.padding(4.dp),
                     text = option,
                     textAlign = TextAlign.Center

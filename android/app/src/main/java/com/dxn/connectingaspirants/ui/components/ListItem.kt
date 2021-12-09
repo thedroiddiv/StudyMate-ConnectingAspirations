@@ -44,7 +44,6 @@ fun ListItem(
                     .fillMaxHeight()
                     .aspectRatio(1f)
             ) { leadingIcon() }
-            Spacer(modifier = Modifier.width(24.dp))
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
