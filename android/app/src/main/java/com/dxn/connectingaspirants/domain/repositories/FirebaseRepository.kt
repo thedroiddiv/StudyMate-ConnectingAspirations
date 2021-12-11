@@ -9,4 +9,5 @@ interface FirebaseRepository {
     fun getUsers(): Flow<Result<List<User>>>
     suspend fun getUser(userId: String): Result<User>
     suspend fun getUsers(userIds:List<String>) : List<User>
+    suspend fun updateRating(userId: String,rating:Float)
 }

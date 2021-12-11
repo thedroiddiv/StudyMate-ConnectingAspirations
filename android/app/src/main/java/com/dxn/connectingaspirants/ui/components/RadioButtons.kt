@@ -21,7 +21,7 @@ import java.time.format.TextStyle
 @Composable
 fun RadioButtons(
     modifier: Modifier,
-    options: List<String>,
+    options: List<Any>,
     selected: Int,
     onSelect: (Int) -> Unit,
 ) {
@@ -46,7 +46,7 @@ fun RadioButtons(
             ) {
                 TitleText(
                     modifier = Modifier.padding(4.dp),
-                    text = option,
+                    text = option.toString(),
                     textAlign = TextAlign.Center
                 )
             }

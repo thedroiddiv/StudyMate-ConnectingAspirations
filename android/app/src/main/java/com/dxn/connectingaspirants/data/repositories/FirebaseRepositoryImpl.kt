@@ -1,12 +1,12 @@
 package com.dxn.connectingaspirants.data.repositories
 
-import android.util.Log
 import com.dxn.connectingaspirants.common.Result
-import com.dxn.connectingaspirants.data.models.Chat
+import com.dxn.connectingaspirants.data.models.Rating
 import com.dxn.connectingaspirants.data.models.User
 import com.dxn.connectingaspirants.domain.repositories.FirebaseRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
@@ -47,6 +47,10 @@ class FirebaseRepositoryImpl(
     override suspend fun getUser(userId: String): Result<User> {
         val user = userCollection.document(userId).get().await().toObject(User::class.java)
         return if (user != null) return Result.Success(user) else Result.Failure("User not found!")
+    }
+
+    override suspend fun updateRating(userId: String, rating: Float) {
+        userCollection.document(userId).update("ratings", FieldValue.arrayUnion(Rating(rating)))
     }
 
     companion object {

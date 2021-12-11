@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -21,9 +22,8 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.dxn.connectingaspirants.data.models.Target
 import com.dxn.connectingaspirants.data.models.User
-import com.dxn.connectingaspirants.ui.components.ListItem
-import com.dxn.connectingaspirants.ui.components.RadioButtons
-import com.dxn.connectingaspirants.ui.components.RoundedButton
+import com.dxn.connectingaspirants.data.models.getAverageRating
+import com.dxn.connectingaspirants.ui.components.*
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -84,16 +84,18 @@ fun Explore(
                             )
                         },
                         trailingIcon = {
-                            RoundedButton(
-                                modifier = Modifier.scale(0.7f),
-                                text = "Connect",
-                                textPadding = 2.dp
-                            ) {
-                                navController.navigate("chat_screen/${user.uid}")
+                            val rating = if (user.ratings.isNotEmpty()) {
+                                getAverageRating(user.ratings).toString()
+                            } else {
+                                "Not Rated"
                             }
+                            Text(text = rating)
                         },
                         primaryText = user.name,
-                        secondaryText = user.target.toString()
+                        secondaryText = user.target.toString(),
+                        onClick = {
+                            navController.navigate("chat_screen/${user.uid}")
+                        }
                     )
             }
         }

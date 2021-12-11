@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,7 +43,8 @@ fun ListItem(
                 modifier = Modifier
                     .padding(4.dp)
                     .fillMaxHeight()
-                    .aspectRatio(1f)
+                    .aspectRatio(1f),
+                contentAlignment = Center
             ) { leadingIcon() }
             Box(
                 modifier = Modifier

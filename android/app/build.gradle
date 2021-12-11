@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
+    id 'kotlinx-serialization'
 }
 
 android {
@@ -16,7 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -82,11 +83,13 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
 
     // Coroutines
-    def coroutines_version="1.5.2"
+    def coroutines_version = "1.5.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
+    // kotlinx serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
 
     // Room
     def room_version = "2.3.0"
@@ -115,4 +118,5 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.31"
 }

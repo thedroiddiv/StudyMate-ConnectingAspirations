@@ -7,7 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.dxn.connectingaspirants.ui.screens.chats.Chat
+import com.dxn.connectingaspirants.ui.screens.chat.Chat
+import com.dxn.connectingaspirants.ui.screens.chat.ChatViewModel
 import com.dxn.connectingaspirants.ui.screens.chats.Chats
 import com.dxn.connectingaspirants.ui.screens.chats.ChatsViewModel
 import com.dxn.connectingaspirants.ui.screens.home.Home
@@ -26,6 +27,7 @@ fun MainScreen(
     val navController = rememberNavController()
     val homeViewModel: HomeViewModel = viewModel()
     val chatsViewModel: ChatsViewModel = viewModel()
+    val chatViewModel : ChatViewModel = viewModel()
 
 
     NavHost(navController = navController, startDestination = "home_screen") {
@@ -45,9 +47,9 @@ fun MainScreen(
             arguments = listOf(navArgument("receiverId") {})
         ) { navBackStack ->
             val receiverId = navBackStack.arguments?.getString("receiverId")!!
-            chatsViewModel.loadChat(receiverId)
-            chatsViewModel.loadUsers(receiverId)
-            Chat(receiverId = receiverId, viewModel = chatsViewModel,navController)
+            chatViewModel.loadChat(receiverId)
+            chatViewModel.loadUsers(receiverId)
+            Chat(receiverId = receiverId, viewModel = chatViewModel,navController)
         }
     }
 

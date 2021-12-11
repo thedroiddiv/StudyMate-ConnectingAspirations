@@ -1,41 +1,38 @@
-package com.dxn.connectingaspirants.ui.screens.chats
+package com.dxn.connectingaspirants.ui.screens.chat
 
-import android.graphics.fonts.FontStyle
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.MoreVert
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.Send
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
-import com.dxn.connectingaspirants.data.models.User
+import com.dxn.connectingaspirants.data.models.TargetParameters
 import com.dxn.connectingaspirants.ui.components.EditMessageField
 import com.dxn.connectingaspirants.ui.components.HeadingText
 import com.dxn.connectingaspirants.ui.components.MessageCard
-import com.dxn.connectingaspirants.ui.components.TitleText
 
 @Composable
 fun Chat(
     receiverId: String,
-    viewModel: ChatsViewModel,
+    viewModel: ChatViewModel,
     navController: NavController
 ) {
     var message by remember { mutableStateOf("") }
     val chat by remember { viewModel.chat }
     val sender by remember { viewModel.sender }
     val receiver by remember { viewModel.receiver }
+    var isDialogVisible by remember { mutableStateOf(false) }
+
+
     Scaffold(
         topBar = {
             TopAppBar(backgroundColor = MaterialTheme.colors.background) {
@@ -53,13 +50,10 @@ fun Chat(
                         )
                     }
                     HeadingText(text = receiver.name)
-                    IconButton(onClick = {
-
+                    TextButton(onClick = {
+                        isDialogVisible = true
                     }) {
-                        Icon(
-                            imageVector = Icons.Rounded.MoreVert,
-                            contentDescription = ""
-                        )
+                        Text(text = "End Chat")
                     }
                 }
             }
@@ -91,6 +85,46 @@ fun Chat(
                 }
             }
         }
-    }
+        if (isDialogVisible) {
+            val targetParameter = TargetParameters.getTargetParams(receiver.target)!!
+            Dialog(onDismissRequest = { isDialogVisible = false }) {
+                val selected =
+                    remember { targetParameter.parameters.map { 0 }.toMutableStateList() }
+                Card(
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Column(Modifier.padding(16.dp)) {
+                        RatingScreen(
+                            targetParameters = targetParameter,
+                            selected = selected.toTypedArray(),
+                            onSelect = { index, value ->
+                                selected[index] = value
+                            })
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                            TextButton(onClick = { isDialogVisible = false }) {
+                                Text(text = "Cancel")
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            TextButton(onClick = {
+                                viewModel.submitRating(
+                                    receiver.uid,
+                                    selected.toTypedArray().average().toFloat()+1f
+                                )
+                                isDialogVisible=false
+                                navController.popBackStack()
 
+                            }) {
+                                Text(text = "Submit rating")
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+
+    }
 }
