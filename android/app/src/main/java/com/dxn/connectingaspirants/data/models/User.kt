@@ -21,6 +21,10 @@ data class Rating(
 )
 
 fun getAverageRating(ratings: List<Rating>): Float {
-    val number = (ratings.map { it.value }.average())
+    val number : Double = if(ratings.isNotEmpty()) {
+        (ratings.map { it.value }.average())
+    } else {
+        0.0
+    }
     return ((number * 100.0).roundToInt() / 100.0).toFloat()
 }

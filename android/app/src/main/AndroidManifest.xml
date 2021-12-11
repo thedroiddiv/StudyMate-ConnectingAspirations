@@ -9,14 +9,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ConnectingAspirants">
+        android:theme="@style/Theme.ConnectingAspirants.Splash">
         <activity
             android:name=".ui.screens.auth.SignInActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ConnectingAspirants">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,8 +26,7 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ConnectingAspirants">
+            android:label="@string/app_name">
         </activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"

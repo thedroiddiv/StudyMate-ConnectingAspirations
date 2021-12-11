@@ -103,7 +103,7 @@ fun Chat(
                         Spacer(modifier = Modifier.height(16.dp))
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                             TextButton(onClick = { isDialogVisible = false }) {
-                                Text(text = "Cancel")
+                                Text(text = "Dismiss")
                             }
                             Spacer(modifier = Modifier.width(8.dp))
                             TextButton(onClick = {
@@ -115,7 +115,7 @@ fun Chat(
                                 navController.popBackStack()
 
                             }) {
-                                Text(text = "Submit rating")
+                                Text(text = "Submit")
                             }
                         }
 
@@ -125,6 +125,5 @@ fun Chat(
 
             }
         }
-
     }
 }

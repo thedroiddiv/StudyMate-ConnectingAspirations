@@ -2,6 +2,7 @@ package com.dxn.connectingaspirants.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,6 +25,7 @@ import com.dxn.connectingaspirants.data.models.Target
 import com.dxn.connectingaspirants.data.models.User
 import com.dxn.connectingaspirants.data.models.getAverageRating
 import com.dxn.connectingaspirants.ui.components.*
+import com.dxn.connectingaspirants.ui.screens.profile.Profile
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -40,9 +42,12 @@ fun Explore(
 
     var selectedIndex by remember { mutableStateOf(0) }
     val targets =
-        listOf(Target.ALL, Target.GATE, Target.JEE, Target.NEET, Target.PROGRAMMING, Target.UPSC)
+        listOf(Target.ALL, Target.GATE, Target.JEE, Target.NEET, Target.UPSC)
     val filteredList: List<User> =
         if (selectedIndex == 0) users else users.filter { it.target == targets[selectedIndex] }
+
+    var user by remember { mutableStateOf(User()) }
+    var isDialogVisible by remember { mutableStateOf(false) }
 
     SwipeRefresh(
         modifier = Modifier
@@ -58,7 +63,6 @@ fun Explore(
         onRefresh = refresh
     ) {
         LazyColumn(Modifier.padding(horizontal = 16.dp)) {
-
             item {
                 RadioButtons(
                     modifier = Modifier
@@ -69,8 +73,8 @@ fun Explore(
                     onSelect = { selectedIndex = it }
                 )
             }
-            items(filteredList) { user ->
-                if (user.uid != currentUserId)
+            items(filteredList) { u ->
+                if (u.uid != currentUserId)
                     ListItem(
                         modifier = Modifier
                             .padding(vertical = 8.dp)
@@ -78,26 +82,40 @@ fun Explore(
                             .background(Color.Transparent),
                         leadingIcon = {
                             Image(
-                                modifier = Modifier.clip(CircleShape),
-                                painter = rememberImagePainter(data = user.photoUrl),
+                                modifier = Modifier
+                                    .clip(CircleShape)
+                                    .clickable {
+                                        user = u
+                                        isDialogVisible=true
+                                    },
+                                painter = rememberImagePainter(data = u.photoUrl),
                                 contentDescription = "user icon"
                             )
                         },
                         trailingIcon = {
-                            val rating = if (user.ratings.isNotEmpty()) {
-                                getAverageRating(user.ratings).toString()
+                            val rating = if (u.ratings.isNotEmpty()) {
+                                getAverageRating(u.ratings).toString()
                             } else {
                                 "Not Rated"
                             }
                             Text(text = rating)
                         },
-                        primaryText = user.name,
-                        secondaryText = user.target.toString(),
+                        primaryText = u.name,
+                        secondaryText = u.target.toString(),
                         onClick = {
-                            navController.navigate("chat_screen/${user.uid}")
+                            navController.navigate("chat_screen/${u.uid}")
                         }
                     )
             }
         }
+        if (isDialogVisible) {
+            ProfileDialog(
+                user = user,
+                confirmText = "Connect",
+                onDismissRequest = { isDialogVisible = false }) {
+                navController.navigate("chat_screen/${user.uid}")
+            }
+        }
+
     }
 }

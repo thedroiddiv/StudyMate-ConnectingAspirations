@@ -53,6 +53,9 @@ android {
 
 dependencies {
 
+    // splash screen api
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
+
     // firebase
     implementation platform('com.google.firebase:firebase-bom:29.0.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
@@ -61,7 +64,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
     implementation 'com.facebook.android:facebook-login:12.2.0'
-
 
     // Coil
     implementation "io.coil-kt:coil-compose:1.4.0"

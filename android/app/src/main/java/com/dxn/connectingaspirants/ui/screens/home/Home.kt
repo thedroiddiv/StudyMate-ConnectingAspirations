@@ -1,25 +1,33 @@
 package com.dxn.connectingaspirants.ui.screens.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.dxn.connectingaspirants.ui.components.HeadingText
 import com.dxn.connectingaspirants.R
+import com.dxn.connectingaspirants.ui.components.ProfileDialog
+import com.dxn.connectingaspirants.ui.screens.chat.RatingScreen
+import com.dxn.connectingaspirants.ui.screens.profile.Profile
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
+import kotlin.math.sign
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
@@ -35,14 +43,14 @@ fun Home(
     val pages = listOf("Explore", "Feeds")
     val scope = rememberCoroutineScope()
 
+    val user by remember { viewModel.user }
     val isLoading by remember { viewModel.isLoading }
     val users by remember { viewModel.users }
     var isDialogVisible by remember { mutableStateOf(false) }
 
-
     Scaffold(
         topBar = {
-            TopAppBar(backgroundColor = MaterialTheme.colors.background) {
+            TopAppBar(modifier = Modifier.wrapContentHeight(),backgroundColor = MaterialTheme.colors.background) {
                 Row(
                     Modifier
                         .fillMaxWidth()
@@ -73,7 +81,6 @@ fun Home(
                     }
                 }
             }
-
         },
         bottomBar = {
             TabRow(
@@ -98,37 +105,26 @@ fun Home(
             }
         }
     ) {
-        HorizontalPager(count = 2, state = pagerState) { page ->
-            when (page) {
-                0 -> {
-                    Explore(currentUser.uid, users, isLoading, navController) {
-                        viewModel.loadUsers()
+        Column(Modifier.fillMaxSize()) {
+            HorizontalPager(count = 2, state = pagerState) { page ->
+                when (page) {
+                    0 -> {
+                        Explore(currentUser.uid, users, isLoading, navController) {
+                            viewModel.loadUsers()
+                        }
+                    }
+                    1 -> {
+                        Feeds()
                     }
                 }
-                1 -> {
-                    Feeds()
+
+            }
+            if (isDialogVisible) {
+                ProfileDialog(user = user,
+                    confirmText = "Sign Out", onDismissRequest = { isDialogVisible = false }) {
+                    signOut()
                 }
             }
-        }
-        if (isDialogVisible) {
-            AlertDialog(
-                onDismissRequest = { isDialogVisible = false },
-                confirmButton = {
-                    TextButton(onClick = signOut) {
-                        Text(text = "Yes")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { isDialogVisible = false }) {
-                        Text(text = "No")
-                    }
-                },
-                title = {
-                    Text(text = "Sign out?")
-                },
-                backgroundColor = MaterialTheme.colors.background,
-                contentColor = MaterialTheme.colors.onBackground
-            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.dxn.connectingaspirants.ui.screens.auth
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.Orientation
@@ -12,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -28,7 +30,7 @@ fun AuthScreen(
     signInWithEmail: (email: String, password: String) -> Unit,
 ) {
 
-
+    val context = LocalContext.current
     var selectedTagIndex by remember { viewModel.selectedTagIndex }
     var selectedLevelIndex by remember { viewModel.selectedLevelIndex }
 
@@ -84,6 +86,6 @@ fun AuthScreen(
         RoundedButton(
             modifier = Modifier.fillMaxWidth(),
             text = "Continue with Email and Password"
-        ) { }
+        ) { Toast.makeText(context,"Coming Soon",Toast.LENGTH_SHORT).show() }
     }
 }

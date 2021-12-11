@@ -22,7 +22,7 @@ constructor(
 ) : ViewModel() {
 
     val tags = listOf(
-        Target.GATE, Target.JEE, Target.NEET, Target.PROGRAMMING, Target.UPSC
+        Target.GATE, Target.JEE, Target.NEET,  Target.UPSC
     )
 
     private val levels = listOf(
