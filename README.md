@@ -1,6 +1,6 @@
 # ConnectingAspirants ![Build status](https://github.com/wallabag/android-app/workflows/CI/badge.svg?branch=master)
 
-<img src="https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/istockphoto-1283030328-170667a.jpg" align="left"
+<img src="https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/ic_launcher/android/play_store_512.png" align="left"
 width="200" hspace="10" vspace="10">
 
 This concept focusses on bringing people with same interest on one platform so that they can exchange their knowledge and grow.
@@ -24,6 +24,7 @@ Connecting Aspirants provides a platform, enabling you to instantly and easily b
 Take the first step and start social networking for your benefit and build connections and find a perfect match student.
 Filter out people based on your aim. Easily chat or have video calls to clear one anothers' doubts. In the end, rate the conversation based on mentioned parameters.
 Interested in knowing more? Connecting Aspirants lets you in touch with brilliant minds just on a single tap which you can never find in your local network so easily.
+
 Connecting Aspirants Features:
 
 CAREER GUIDANCE
