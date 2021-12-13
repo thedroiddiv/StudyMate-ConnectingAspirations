@@ -9,7 +9,7 @@ Aim of the foundation of ConnectingAspirants is to fill the gap of communication
 <br>[ConnectingAspirants](www.connectingaspirants.org) is available on the Google Play Store.
 
 <p align="left">
-<a href="https://play.google.com/store/apps/details?id=$empty">
+<a href="_">
     <img alt="Get it on Google Play"
         height="80"
         src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
@@ -40,16 +40,18 @@ SOCIAL NETWORKING APP
 Want to make the most of Connecting Aspirants? Download now and create your study accountable and enjoyable.
 
 ## SAMPLES
-<img alt="IntialLoadingScreen"
-        height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/aspirantsImage%20(2).jpg />
-<img alt="DiscoverPeople"
-        height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Discover.jpg />
-<img alt="Profile"
-        height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/profile.png />
-![ChatScreen](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-17.png) 
-![ChatList](https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/Screenshot%20from%202021-12-07%2011-21-05.png) 
-
-# Implementation Structure
+<div>
+<img alt="IntialLoadingScreen" height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/samples/1.jpeg />
+<img alt="IntialLoadingScreen" height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/samples/2.jpeg />
+<img alt="IntialLoadingScreen" height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/samples/3.jpeg />
+<img alt="IntialLoadingScreen" height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/samples/4.jpeg />
+<img alt="IntialLoadingScreen" height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/samples/5.jpeg />
+<img alt="IntialLoadingScreen" height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/samples/6.jpeg />
+<img alt="IntialLoadingScreen" height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/samples/7.jpeg />
+<img alt="IntialLoadingScreen" height="423" src=https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/assets/samples/8.jpeg />
+</div>
+    
+# Basic Data Models
 <p align="center">
 <img  height="500" src="https://github.com/divyansh-dxn/ConnectingAspirants/blob/main/media_storage/data.png" />
 </p>
