@@ -1,6 +1,8 @@
 
 app/src/main/res/values/secrets.xml
 
+keystore/
+
 .idea
 *.iml
 .gradle

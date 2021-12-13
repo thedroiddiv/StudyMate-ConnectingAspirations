@@ -11,15 +11,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 
 @Composable
-fun MessageItem(
-    senderImage: String,
-    senderName: String,
-
-    ) {
-
-}
-
-@Composable
 fun MessageCard(
     senderImage: String,
     senderName: String,

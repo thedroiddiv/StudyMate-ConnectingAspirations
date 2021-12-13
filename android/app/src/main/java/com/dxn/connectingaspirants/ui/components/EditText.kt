@@ -13,12 +13,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 
 @Composable
-fun InputField() {
-
-}
-
-
-@Composable
 fun TransparentTextField(
     modifier: Modifier = Modifier,
     value: String,

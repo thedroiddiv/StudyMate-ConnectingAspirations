@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">ConnectingAspirants</string>
+    <string name="app_name">Study Mate</string>
     <string name="notes_description">ConnectingAspirants has been made for you to comfortably connect to people with same goal.</string>
     <string name="txt_connect_with_facebook">Continue with Facebook</string>
+    <string name="txt_connect_with_google">Continue with Google</string>
 </resources>

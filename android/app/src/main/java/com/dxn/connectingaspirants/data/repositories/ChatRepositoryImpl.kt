@@ -62,7 +62,10 @@ class ChatRepositoryImpl(
                         )
                         return@addSnapshotListener
                     }
-                    trySend(Result.Success((value?.toObject(User::class.java))!!.chats))
+                    try {
+                        trySend(Result.Success((value?.toObject(User::class.java))!!.chats))
+                    } catch (e:Exception) {
+                    }
                 }
             awaitClose { listener.remove() }
         }
@@ -76,8 +79,7 @@ class ChatRepositoryImpl(
                     trySend(Result.Loading())
                     if (exception != null) {
                         cancel(
-                            message = "error fetching collection data at path - $",
-                            cause = exception
+                            message = "error fetching messages, please retry"
                         )
                         trySend(Result.Failure(exception.message ?: "something went wrong"))
                         return@addSnapshotListener

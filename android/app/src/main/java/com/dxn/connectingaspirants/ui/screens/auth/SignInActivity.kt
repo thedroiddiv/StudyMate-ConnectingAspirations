@@ -50,7 +50,7 @@ class SignInActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = installSplashScreen()
+    installSplashScreen()
 
         setContent {
             ConnectingAspirantsTheme {

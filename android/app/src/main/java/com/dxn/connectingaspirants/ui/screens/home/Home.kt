@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
@@ -50,37 +51,38 @@ fun Home(
 
     Scaffold(
         topBar = {
-            TopAppBar(modifier = Modifier.wrapContentHeight(),backgroundColor = MaterialTheme.colors.background) {
+            TopAppBar(
+                backgroundColor = MaterialTheme.colors.background
+            ) {
                 Row(
                     Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.Bottom,
+                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    HeadingText(text = "Hello!\n${currentUser.displayName!!}", maxLines = 2)
-                    Row {
-                        IconButton(
-                            modifier = Modifier.size(40.dp),
-                            onClick = { isDialogVisible = true }) {
-                            Image(
-                                modifier = Modifier.clip(CircleShape),
-                                painter = rememberImagePainter(data = currentUser.photoUrl),
-                                contentDescription = "user profile",
-                            )
-                        }
-                        IconButton(
-                            modifier = Modifier.size(40.dp),
-                            onClick = { navController.navigate("chats_screen") }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_chat),
-                                contentDescription = "chats",
-                                tint = MaterialTheme.colors.primary,
-                            )
-                        }
+                    IconButton(
+                        modifier = Modifier.size(32.dp),
+                        onClick = { isDialogVisible = true }) {
+                        Image(
+                            modifier = Modifier.clip(CircleShape),
+                            painter = rememberImagePainter(data = currentUser.photoUrl),
+                            contentDescription = "user profile",
+                        )
+                    }
+                    HeadingText(text = stringResource(id = R.string.app_name), maxLines = 2)
+                    IconButton(
+                        modifier = Modifier.size(32.dp),
+                        onClick = { navController.navigate("chats_screen") }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_chat),
+                            contentDescription = "chats",
+                            tint = MaterialTheme.colors.primary,
+                        )
                     }
                 }
             }
+
         },
         bottomBar = {
             TabRow(
