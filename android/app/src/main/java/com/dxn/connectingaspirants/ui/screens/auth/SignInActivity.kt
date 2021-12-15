@@ -37,7 +37,6 @@ class SignInActivity : ComponentActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var signInIntentLauncher: ActivityResultLauncher<Intent>
-    private lateinit var facebookLoginIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var callbackManager: CallbackManager
 
     @Inject
